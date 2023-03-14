@@ -1,0 +1,230 @@
+PL/SQL programs:
+
+SQL> set serveroutput on verify off;
+SQL> declare
+  2  a number;
+  3  b number;
+  4  begin
+  5  a:=10;
+  6  b:=20;
+  7  dbms_output.put_line('the value of a= '|| a);
+  8  end;
+  9  /
+the value of a= 10
+
+
+SQL> declare
+  2  a number;
+  3  b number;
+  4  c number;
+  5  begin
+  6  a:=10;
+  7  b:=20;
+  8  c:=30;
+  9  if a>b then
+ 10  if a>c then
+ 11  dbms_output.put_line('a is greater');
+ 12  else dbms_output.put_line('c is greater');
+ 13  end if;
+ 14  elsif b>c then
+ 15  dbms_output.put_line('b is greater');
+ 16  else dbms_output.put_line('c is greater');
+ 17  end if;
+ 18  end;
+ 19  /
+c is greater
+PL/SQL procedure successfully completed.
+
+
+SQL> declare
+  2  a number;
+  3  b number;
+  4  begin
+  5  a:=10;
+  6  b:=5;
+  7  if a>b then
+  8  dbms_output.put_line('a is greater');
+  9  else dbms_output.put_line('b is greater');
+ 10  end if;
+ 11  end;
+ 12  /
+a is greater
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  a number;
+  3  b number;
+  4  c number;
+  5  begin
+  6  a:=10;
+  7  b:=25;
+  8  c:=4;
+  9  if a>b then
+ 10  if a>c then
+ 11  dbms_output.put_line('a is greater');
+ 12  else dbms_output.put_line('c is greater');
+ 13  end if;
+ 14  elsif b>c then
+ 15  dbms_output.put_line('b is greater');
+ 16  else dbms_output.put_line('c is greater');
+ 17  end if;
+ 18  end;
+ 19  /
+b is greater
+PL/SQL procedure successfully completed.
+
+//Basic loop
+
+SQL> declare
+  2  i number;
+  3  begin
+  4  i:=1;
+  5  loop
+  6  dbms_output.put_line(i);
+  7  i:=i+1;
+  8  exit when i>6;
+  9  end loop;
+ 10  end;
+ 11  /
+1
+2
+3
+4
+5
+6
+
+//while loop
+
+SQL> declare
+  2  i number;
+  3  begin
+  4  i:=2;
+  5  while i<=10
+  6  loop
+  7  dbms_output.put_line(i);
+  8  i:=i+2;
+  9  end loop;
+ 10  end;
+ 11  /
+2
+4
+6
+8
+10
+//enter dot to come out from that program
+//factorial of a number
+
+SQL> declare
+  2  i number;
+  3  n number;
+  4  fact number;
+  5  begin
+  6  i:=1;
+  7  fact:=1;
+  8  n:=&n;
+  9  while i<=n
+ 10  loop
+ 11  fact:=fact*i;
+ 12  i:=i+1;
+ 13  end loop;
+ 14  dbms_output.put_line('The factorial of' ||n|| 'is= ' ||fact);
+ 15  end;
+ 16  /
+Enter value for n: 5
+The factorial of 5 is= 120
+
+//using for loop
+SQL> declare
+  2  i number;
+  3  n number;
+  4  fact number;
+  5  begin
+  6  i:=1;
+  7  fact:=1;
+  8  n:=&n;
+  9  for i IN 1..n
+ 10  loop
+ 11  fact:=fact*i;
+ 12  end loop;
+ 13  dbms_output.put_line('the factorial of ' ||n|| 'is =' ||fact);
+ 14  end;
+ 15  /
+Enter value for n: 5
+the factorial of 5is =120
+
+SQL> declare
+  2  i number;
+  3  n number;
+  4  begin
+  5  i:=1;
+  6  n:=&n;
+  7  for i IN 1..7
+  8  loop
+  9  dbms_output.put_line(i);
+ 10  end loop;
+ 11  end;
+ 12  /
+Enter value for n: 9
+1
+2
+3
+4
+5
+6
+7
+
+
+//sum of even numbers upto n
+DECLARE
+    n NUMBER;
+    sum NUMBER := 0;
+BEGIN
+    -- Set the value of "n"
+    n := 10;
+    
+    -- Loop through each number up to "n"
+    FOR i IN 1..n 
+    LOOP
+        -- Check if the current number is even
+        IF i mod 2 = 0 THEN
+            -- Add the current number to the running total
+            sum := sum + i;
+        END IF;
+    END LOOP;
+    
+    -- Output the final sum
+    DBMS_OUTPUT.PUT_LINE('The sum of even numbers up to ' || n || ' is ' || sum);
+END;
+
+//find the hcf of 2 numbers by taking input from user
+DECLARE
+    num1 NUMBER;
+    num2 NUMBER;
+    min_num NUMBER;
+    hcf NUMBER := 1;
+BEGIN
+    -- Take input from the user for the first number
+    DBMS_OUTPUT.PUT('Enter the first number: ');
+    num1 := &input_number;
+    
+    -- Take input from the user for the second number
+    DBMS_OUTPUT.PUT('Enter the second number: ');
+    num2 := &input_number;
+    
+    -- Determine the minimum of the two numbers
+    IF num1 < num2 THEN
+        min_num := num1;
+    ELSE
+        min_num := num2;
+    END IF;
+    
+    -- Find the HCF of the two numbers
+    FOR i IN 1..min_num LOOP
+        IF (num1 mod i = 0) AND (num2 mod i = 0) THEN
+            hcf := i;
+        END IF;
+    END LOOP;
+    
+    -- Output the HCF
+    DBMS_OUTPUT.PUT_LINE('The HCF of ' || num1 || ' and ' || num2 || ' is ' || hcf);
+END;
